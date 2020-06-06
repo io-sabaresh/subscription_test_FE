@@ -1,3 +1,7 @@
+import axios from 'axios';
+import constants from '../constants'
+import notification from '../notifications'
+
 export default {
     state: {
         newUser: {
@@ -32,5 +36,28 @@ export default {
             }
         }
     },
-    action: {}
+    actions: {
+        createNewUser({ commit }, newUser) {
+            return new Promise((resolve, reject) => {
+                axios ({
+                    url: `${constants.API_ENDPOINTS.DEFAULT_SERVICE}/users/signup/${newUser.userType}`,
+                    method: 'POST',
+                    data: newUser
+                }).then(({ data }) => {
+                    if(data.success === true) {
+                        notification.success('Account Cretead! Login and Start Using');
+                        router.push({name: 'login'});
+                    } else {
+                        notification.error('Error, Please try again');
+                    }
+                    commit('resetNewUserValues');
+                    resolve();
+                }).catch((error) => {
+                    notification.error('Error Occured!, Please try later');
+                    commit('resetNewUserValues');
+                    reject(error);
+                })
+            });
+        }
+    }
 }

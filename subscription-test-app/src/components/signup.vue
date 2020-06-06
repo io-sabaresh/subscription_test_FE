@@ -15,7 +15,7 @@
                 @change="validate && updateForm('firstName', $event)"
               ></v-text-field>
             </ValidationProvider>
-            
+
             <v-text-field
               :value="newUser.lastName"
               :counter="20"
@@ -25,6 +25,7 @@
 
             <ValidationProvider v-slot="{ errors, validate }" name="User Type" rules="required">
               <v-select
+                :value="newUser.userType"
                 :items="userTypes"
                 item-text="title"
                 item-value="value"
@@ -75,7 +76,7 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from "vuex";
+import { mapMutations, mapState, mapActions } from "vuex";
 import { required, email, max, min } from "vee-validate/dist/rules";
 import {
   extend,
@@ -119,9 +120,14 @@ export default {
   },
   methods: {
     ...mapMutations(["setUserValue", "resetNewUserValues"]),
-
+    ...mapActions(["createNewUser"]),
     submit() {
-      this.$refs.observer.validate();
+      this.$refs.observer.validate().then(isValid => {
+        if (isValid === true) {
+          this.createNewUser(this.newUser);
+        }
+        this.$refs.observer.reset();
+      });
     },
     clear() {
       this.resetNewUserValues();

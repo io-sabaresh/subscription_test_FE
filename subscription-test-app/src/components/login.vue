@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from "vuex";
+import { mapMutations, mapState, mapActions } from "vuex";
 import { required, email, max, min } from "vee-validate/dist/rules";
 import {
   extend,
@@ -76,12 +76,19 @@ export default {
     })
   },
   methods: {
-    ...mapMutations(["setuser"]),
+    ...mapMutations(["setuser", "resetUser"]),
+    ...mapActions(["login"]),
 
     submit() {
-      this.$refs.observer.validate();
+        this.$refs.observer.validate().then(isValid => {
+        if(isValid === true) {
+          this.login(this.user);
+        }
+        this.$refs.observer.reset();
+      });
     },
     clear() {
+      this.resetUser();
       this.$refs.observer.reset();
     },
     updateForm(property, value) {

@@ -1,7 +1,10 @@
 <template>
   <v-app>
     <v-content>
-      <router-view></router-view>
+      
+      <notifications group="foo" />
+      <router-view default="{name: 'Home'}"></router-view>
+
     </v-content>
   </v-app>
 </template>

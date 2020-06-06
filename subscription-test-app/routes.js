@@ -1,15 +1,18 @@
-
+import Vue from 'vue'
 import VueRouter from 'vue-router'
 import TestComponent from '@/components/testComponent'
 
-const routes = [
-    { path: '/test', component: TestComponent, name: 'test' },
-]
+Vue.use(VueRouter)
 
+const routes = [
+    { path: '', name: 'home', component: TestComponent },
+    { path: '/', name: 'home', component: TestComponent },
+    { path: '*', redirect: '/' },
+]
 
 const router = new VueRouter({
     mode: 'history',
-    routes // short for `routes: routes`
+    routes
 })
 
 export default router;

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import constants from '../constants'
 import notification from '../notifications'
+import router from '../routes';
 
 export default {
     state: {
@@ -46,7 +47,7 @@ export default {
                 }).then(({ data }) => {
                     if(data.success === true) {
                         notification.success('Account Cretead! Login and Start Using');
-                        router.push({name: 'login'});
+                        router.push({ name: 'Login'});
                     } else {
                         notification.error('Error, Please try again');
                     }

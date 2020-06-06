@@ -6,10 +6,10 @@
 
       <v-spacer></v-spacer>
       <v-btn class="mr-3" light medium>
-        <router-link :to="'login'">Login</router-link>
+        <router-link :to="{name: 'Login'}">Login</router-link>
       </v-btn>
       <v-btn class="green" medium>
-        <router-link :to="'signup'">SignUp</router-link>
+        <router-link :to="{name: 'SignUp'}">SignUp</router-link>
       </v-btn>
     </v-app-bar>
   </div>

@@ -21,16 +21,16 @@ export default {
         }
     },
     actions: {
-        login({ commit }, loginDetails) {
+        login({ commit, dispatch }, loginDetails) {
             return new Promise((resolve, reject) => {
-                axios ({
+                axios({
                     url: `${constants.API_ENDPOINTS.DEFAULT_SERVICE}/users/login`,
                     method: 'POST',
                     data: loginDetails
                 }).then(({ data }) => {
-                    if(data.success === true) {
+                    if (data.success === true) {
                         notification.success('Login Successful');
-                        // router.push({name: ''});
+                        dispatch('fetchUserDetails', data.message.email, { root: true });
                     } else {
                         notification.error('Error, Please try again');
                     }

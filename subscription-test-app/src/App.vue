@@ -3,7 +3,7 @@
     <v-content>
       
       <notifications group="foo" />
-      <router-view></router-view>
+      <router-view default="{name: 'Home'}"></router-view>
 
     </v-content>
   </v-app>
